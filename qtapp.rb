@@ -8,6 +8,7 @@ class QtApp < Qt::Widget
         super()
         
         setWindowTitle "Generátor dopisů"
+        setFixedSize(950,400)
 
         @form_secretary = FormSecretary.new
         @form_company = FormCompany.new
@@ -48,7 +49,9 @@ class QtApp < Qt::Widget
     end
 
     def reset_form
-        @form_fields.each { |key, value| value.reset }
+        @form_secretary.reset_form
+        @form_company.reset_form
+        @form_gov.reset_form
     end
 
 end

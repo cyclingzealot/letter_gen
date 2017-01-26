@@ -1,7 +1,7 @@
 require 'Qt'
 require_relative 'form_field'
 
-class Form < Qt::Widget
+class Form < Qt::Frame
 	attr_accessor :form_fields
 
 	slots 'reset_form()'
@@ -11,6 +11,7 @@ class Form < Qt::Widget
 		@form_name = form_name
 		@form_fields = {}
 		@status_bar = Qt::Label.new(form_name)
+		@status_bar.setFont Qt::Font.new "Purisa", 12
 
 		@reset = Qt::PushButton.new(tr("Reset"))
 		@reset.setFixedSize(80,20)
@@ -19,17 +20,20 @@ class Form < Qt::Widget
         @layout = Qt::VBoxLayout.new
         @layout.addWidget @status_bar
         @layout.addWidget @reset
+        self.setFrameStyle(1);
 	end
 
 	def reset_form
         @form_fields.each { |key, value| value.reset }
         @status_bar.text = @form_name
+        @status_bar.setFont Qt::Font.new "Purisa", 12
     end
 
     def validate_form
     	@form_fields.each do |key, value|
     		unless value.validate
     			@status_bar.text = value.error_message
+    			@status_bar.setFont Qt::Font.new "Purisa", 9
     			return false
     		end
     	end
@@ -79,7 +83,8 @@ class FormGov < Form
 
 		@form_fields = {
 			:local_office => TextField.new("Územní pracoviště"),
-			:finance_office => TextField.new("Sídlo FÚ")
+			:finance_office => TextField.new("Sídlo FÚ"),
+			:finance_zip => TextField.new("PSČ FÚ")
 		}
 
 		@form_fields.each { |key, value| @layout.addWidget(value)}
