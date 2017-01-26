@@ -52,8 +52,9 @@ class FormSecretary < Form
 
 		@form_fields = {
             :secretary_name => TextField.new("Jméno jednatele"),
-            :secretary_address => TextField.new("Adresa"),
-            :secretary_zipcode => TextField.new("PSČ")
+            :secretary_street => TextField.new("Ulice"),
+            :secretary_city => TextField.new("Město"),
+            :secretary_zipcode => TextField.new("PSČ"),
         }
 
         @form_fields.each { |key, value| @layout.addWidget(value)}
@@ -68,7 +69,9 @@ class FormCompany < Form
 
 		@form_fields = {
 			:company_name => TextField.new("Název společnosti"),
-			:company_address => TextField.new("Sídlo společnosti"),
+			:company_street => TextField.new("Sídlo společnosti - ulice"),
+			:company_city => TextField.new("Sídlo společnosti - město"),
+			:company_zip => TextField.new("PSČ společnosti"),
 			:company_id => TextField.new("IČO"),
 		}
 
@@ -83,7 +86,8 @@ class FormGov < Form
 
 		@form_fields = {
 			:local_office => TextField.new("Územní pracoviště"),
-			:finance_office => TextField.new("Sídlo FÚ"),
+			:finance_address => TextField.new("Sídlo FÚ - ulice"),
+			:finance_office => TextField.new("Sídlo FÚ - město"),
 			:finance_zip => TextField.new("PSČ FÚ")
 		}
 

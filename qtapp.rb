@@ -8,7 +8,7 @@ class QtApp < Qt::Widget
         super()
         
         setWindowTitle "Generátor dopisů"
-        setFixedSize(950,400)
+        setFixedSize(950,600)
 
         @form_secretary = FormSecretary.new
         @form_company = FormCompany.new
