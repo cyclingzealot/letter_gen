@@ -1,5 +1,5 @@
 require 'Qt'
-require_relative 'form_secretary'
+require_relative 'form'
 
 class QtApp < Qt::Widget
     slots 'print_form()', 'reset_form()'
