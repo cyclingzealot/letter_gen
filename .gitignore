@@ -51,3 +51,6 @@ build-iPhoneSimulator/
 
 #folder with generated letters
 dopisy
+
+#latex logs
+*.log

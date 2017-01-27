@@ -22,7 +22,8 @@ class LetterGenerator
 			letter_text = letter_text.gsub("--#{key.to_s}--", value.to_s)
 		end
 		
-		File.open("#{TARGET_PATH}/#{letter_name}.tex", 'w') { |f| f.write(letter_text)}
+		Dir.mkdir("#{TARGET_PATH}/#{letter_name}")
+		File.open("#{TARGET_PATH}/#{letter_name}/#{letter_name}.tex", 'w') { |f| f.write(letter_text)}
 	end
 
 	def generate
