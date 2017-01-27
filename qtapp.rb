@@ -1,8 +1,9 @@
 require 'Qt'
 require_relative 'form'
+require_relative 'generator'
 
 class QtApp < Qt::Widget
-    slots 'print_form()', 'reset_form()'
+    slots 'generate_letters()', 'reset_forms()'
 
     def initialize(parent = nil)
         super()
@@ -10,48 +11,62 @@ class QtApp < Qt::Widget
         setWindowTitle "Generátor dopisů"
         setFixedSize(950,600)
 
-        @form_secretary = FormSecretary.new
-        @form_company = FormCompany.new
-        @form_gov = FormGov.new
+        @forms = {
+            :form_secretary => FormSecretary.new,
+            :form_company => FormCompany.new,
+            :form_gov => FormGov.new,
+        }
 
         generate = Qt::PushButton.new(tr("Generovat"))
-        connect(generate, SIGNAL('clicked()'), SLOT('print_form()'))
+        connect(generate, SIGNAL('clicked()'), SLOT('generate_letters()'))
 
         reset = Qt::PushButton.new(tr("Reset"))
-        connect(reset, SIGNAL('clicked()'), SLOT('reset_form()'))
+        connect(reset, SIGNAL('clicked()'), SLOT('reset_forms()'))
+
+        @status_bar = Qt::Label.new
 
         reset.setFixedSize(80,20)
         generate.setFixedSize(80,20)
 
         form_layout = Qt::HBoxLayout.new
+        control_layout = Qt::HBoxLayout.new
         layout = Qt::VBoxLayout.new
 
-        form_layout.addWidget @form_secretary
-        form_layout.addWidget @form_company
-        form_layout.addWidget @form_gov
+        @forms.each { |key, value| form_layout.addWidget(value)}
+
+        control_layout.addWidget generate
+        control_layout.addWidget reset
+        control_layout.addWidget @status_bar
 
         layout.addLayout form_layout
-        layout.addWidget generate
-        layout.addWidget reset
+        layout.addLayout control_layout
 
         setLayout layout
 
         show
     end
     
-    def print_form
-        unless @form_secretary.validate_form
-            p 'chyba'
-            return
-        end
+    def generate_letters
+        valid = true
 
-        @form_secretary.print_form
+        @forms.each do |key, value|
+            valid = value.validate
+        end
+        
+        if valid
+            generator = LetterGenerator.new(@forms[:form_secretary].to_dict, 
+                                        @forms[:form_company].to_dict, 
+                                        @forms[:form_gov].to_dict)
+            generator.generate
+            @status_bar.text = "Vygenerováno"
+        else
+            @status_bar.text = "Chyba ve formuláři"
+        end  
     end
 
-    def reset_form
-        @form_secretary.reset_form
-        @form_company.reset_form
-        @form_gov.reset_form
+    def reset_forms
+        @forms.each { |key, value| value.reset}
+        @status_bar.text = "Resetováno"
     end
 
 end

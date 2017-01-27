@@ -41,4 +41,8 @@ class TextField < FormField
     def print
         p @text_field.text
     end
+
+    def to_s
+        @text_field.text
+    end
 end

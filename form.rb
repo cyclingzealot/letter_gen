@@ -28,6 +28,7 @@ class Form < Qt::Frame
         @status_bar.text = @form_name
         @status_bar.setFont Qt::Font.new "Purisa", 12
     end
+    alias reset reset_form
 
     def validate_form
     	@form_fields.each do |key, value|
@@ -39,9 +40,18 @@ class Form < Qt::Frame
     	end
     	true
     end
+    alias validate validate_form
 
     def print_form
     	@form_fields.each { |key, value| value.print }
+    end
+
+    def to_dict
+    	form_dict = {}
+
+    	@form_fields.each { |key, value| form_dict[key] = value.to_s}
+
+    	form_dict
     end
 end
 
@@ -54,7 +64,7 @@ class FormSecretary < Form
             :secretary_name => TextField.new("Jméno jednatele"),
             :secretary_street => TextField.new("Ulice"),
             :secretary_city => TextField.new("Město"),
-            :secretary_zipcode => TextField.new("PSČ"),
+            :secretary_zip => TextField.new("PSČ"),
         }
 
         @form_fields.each { |key, value| @layout.addWidget(value)}
