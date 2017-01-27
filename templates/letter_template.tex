@@ -1,0 +1,42 @@
+\documentclass{../myletter}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{hyperref}
+\usepackage{marvosym}
+
+
+\fancypagestyle{plain}{
+\fancyhf{}
+\fancyhead[C]{Ing. Anon Anon -- likvidátor \\ 152 33 Praha 4, U Úlů 321/1\\ E-mail: necolol@email.cz, Tel: 722 222 222 }
+\fancyfoot[C]{{Ing. Anon Anon -- likvidátor \\ 152 33 Praha 4, U Úlů 321/1 }
+  }
+}
+
+
+\pagestyle{plain}
+
+\makeatletter
+\let\ps@empty\ps@plain
+\let\ps@firstpage\ps@plain
+
+\makeatother
+
+\address{--secretary_name-- \\ --secretary_street-- \\ --secretary_city-- \\ --secretary_zip-- }
+\begin{document}
+
+\begin{letter}{}
+\opening{V Praze dne \today}
+Věc: zrušení společnosti \textbf{--company_name--} v likvidaci - žádost o součinnost                  
+
+Usnesením Městského soudu v Praze Sp.zn. 75 Cm 187/2011 ze dne --datum--, které nabylo právní moci --datum-moc-- bylo rozhodnuto o zrušení společnosti --company_name--, se sídlem --company_street--, --company_city--,  IČ: \textbf{--company_id--} s likvidací. Citovaným usnesením soudu jsem byl zároveň jmenován likvidátorem.  
+
+--paragraph--
+
+\hspace*{5cm}
+
+\closing{..........................................\\ Ing. Anon Anon \\ U Úlů 8, 354 00 Praha 66}
+\end{letter}
+\end{document}
+
