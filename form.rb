@@ -6,6 +6,9 @@ class Form < Qt::Frame
 
 	slots 'reset_form()'
 
+    BUTTON_X_SIZE = 80
+    BUTTON_Y_SIZE = 20
+
 	def initialize(form_name = "Default")
 		super()
 		@form_name = form_name
@@ -14,7 +17,7 @@ class Form < Qt::Frame
 		@status_bar.setFont Qt::Font.new "Purisa", 12
 
 		@reset = Qt::PushButton.new(tr("Reset"))
-		@reset.setFixedSize(80,20)
+		@reset.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
         connect(@reset, SIGNAL('clicked()'), SLOT('reset_form()'))
 
         @layout = Qt::VBoxLayout.new

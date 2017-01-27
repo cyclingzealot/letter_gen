@@ -5,11 +5,17 @@ require_relative 'generator'
 class QtApp < Qt::Widget
     slots 'generate_letters()', 'reset_forms()'
 
+    WINDOW_X_SIZE = 950
+    WINDOW_Y_SIZE = 600
+
+    BUTTON_X_SIZE = 80
+    BUTTON_Y_SIZE = 20
+
     def initialize(parent = nil)
         super()
         
         setWindowTitle "Generátor dopisů"
-        setFixedSize(950,600)
+        setFixedSize(WINDOW_X_SIZE, WINDOW_Y_SIZE)
 
         @forms = {
             :form_secretary => FormSecretary.new,
@@ -25,8 +31,8 @@ class QtApp < Qt::Widget
 
         @status_bar = Qt::Label.new
 
-        reset.setFixedSize(80,20)
-        generate.setFixedSize(80,20)
+        reset.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
+        generate.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
 
         form_layout = Qt::HBoxLayout.new
         control_layout = Qt::HBoxLayout.new
