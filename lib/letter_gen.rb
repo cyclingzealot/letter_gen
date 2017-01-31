@@ -1,8 +1,8 @@
 require 'Qt'
-require_relative 'form'
-require_relative 'generator'
+require 'letter_gen/form'
+require 'letter_gen/generator'
 
-class QtApp < Qt::Widget
+class LetterGen < Qt::Widget
     slots 'generate_letters()', 'reset_forms()'
 
     WINDOW_X_SIZE = 950
@@ -76,7 +76,3 @@ class QtApp < Qt::Widget
     end
 
 end
-
-app = Qt::Application.new ARGV
-QtApp.new
-app.exec

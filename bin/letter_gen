@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'letter_gen'
+require 'Qt'
+
+app = Qt::Application.new ARGV
+LetterGen.new
+app.exec
