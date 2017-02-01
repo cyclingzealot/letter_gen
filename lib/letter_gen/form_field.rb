@@ -1,48 +1,50 @@
 require 'Qt'
 
+# Basic form field class (label)
 class FormField < Qt::Widget
-    attr_accessor :field_name
+  attr_accessor :field_name
 
-    def initialize(field_name = "Default")
-        super()
+  def initialize(field_name = 'Default')
+    super()
 
-        @field_name = field_name
-        @label = Qt::Label.new "#{field_name}:"
-        @layout = Qt::VBoxLayout.new
-        @layout.addWidget @label
-    end
+    @field_name = field_name
+    @label = Qt::Label.new "#{field_name}:"
+    @layout = Qt::VBoxLayout.new
+    @layout.addWidget @label
+  end
 
-    def error_message
-        "Pole #{@field_name} nesmí být prázdné."
-    end
+  def error_message
+    "Pole #{@field_name} nesmí být prázdné."
+  end
 end
 
+# Class for text field in form (label + text field)
 class TextField < FormField
-    attr_accessor :text_field
+  attr_accessor :text_field
 
-    def initialize(field_name = "Default")
-        super(field_name)
+  def initialize(field_name = 'Default')
+    super(field_name)
 
-        @text_field = Qt::LineEdit.new
+    @text_field = Qt::LineEdit.new
 
-        @layout.addWidget @text_field
+    @layout.addWidget @text_field
 
-        setLayout @layout
-    end
+    setLayout @layout
+  end
 
-    def validate
-        @text_field.text.to_s != ''
-    end
+  def validate
+    @text_field.text.to_s != ''
+  end
 
-    def reset
-        @text_field.text = ''
-    end
+  def reset
+    @text_field.text = ''
+  end
 
-    def print
-        p @text_field.text
-    end
+  def print
+    p @text_field.text
+  end
 
-    def to_s
-        @text_field.text
-    end
+  def to_s
+    @text_field.text
+  end
 end

@@ -2,77 +2,77 @@ require 'Qt'
 require 'letter_gen/form'
 require 'letter_gen/generator'
 
+# Main qtapp class
 class LetterGen < Qt::Widget
-    slots 'generate_letters()', 'reset_forms()'
+  slots 'generate_letters()', 'reset_forms()'
 
-    WINDOW_X_SIZE = 950
-    WINDOW_Y_SIZE = 600
+  WINDOW_X_SIZE = 950
+  WINDOW_Y_SIZE = 600
 
-    BUTTON_X_SIZE = 80
-    BUTTON_Y_SIZE = 20
+  BUTTON_X_SIZE = 80
+  BUTTON_Y_SIZE = 20
 
-    def initialize(parent = nil)
-        super()
-        
-        setWindowTitle "Generátor dopisů"
-        setFixedSize(WINDOW_X_SIZE, WINDOW_Y_SIZE)
+  def initialize(_parent = nil)
+    super()
 
-        @forms = {
-            :form_secretary => FormSecretary.new,
-            :form_company => FormCompany.new,
-            :form_gov => FormGov.new,
-        }
+    setWindowTitle 'Generátor dopisů'
+    setFixedSize(WINDOW_X_SIZE, WINDOW_Y_SIZE)
 
-        generate = Qt::PushButton.new(tr("Generovat"))
-        connect(generate, SIGNAL('clicked()'), SLOT('generate_letters()'))
+    @forms = {
+      form_secretary:  FormSecretary.new,
+      form_company: FormCompany.new,
+      form_gov: FormGov.new
+    }
 
-        reset = Qt::PushButton.new(tr("Reset"))
-        connect(reset, SIGNAL('clicked()'), SLOT('reset_forms()'))
+    generate = Qt::PushButton.new(tr('Generovat'))
+    connect(generate, SIGNAL('clicked()'), SLOT('generate_letters()'))
 
-        @status_bar = Qt::Label.new
+    reset = Qt::PushButton.new(tr('Reset'))
+    connect(reset, SIGNAL('clicked()'), SLOT('reset_forms()'))
 
-        reset.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
-        generate.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
+    @status_bar = Qt::Label.new
 
-        form_layout = Qt::HBoxLayout.new
-        control_layout = Qt::HBoxLayout.new
-        layout = Qt::VBoxLayout.new
+    reset.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
+    generate.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
 
-        @forms.each { |key, value| form_layout.addWidget(value)}
+    form_layout = Qt::HBoxLayout.new
+    control_layout = Qt::HBoxLayout.new
+    layout = Qt::VBoxLayout.new
 
-        control_layout.addWidget generate
-        control_layout.addWidget reset
-        control_layout.addWidget @status_bar
+    @forms.each_value { |value| form_layout.addWidget(value) }
 
-        layout.addLayout form_layout
-        layout.addLayout control_layout
+    control_layout.addWidget generate
+    control_layout.addWidget reset
+    control_layout.addWidget @status_bar
 
-        setLayout layout
+    layout.addLayout form_layout
+    layout.addLayout control_layout
 
-        show
-    end
-    
-    def generate_letters
-        valid = true
+    setLayout layout
 
-        @forms.each do |key, value|
-            valid = value.validate
-        end
-        
-        if valid
-            generator = LetterGenerator.new(@forms[:form_secretary].to_dict, 
-                                        @forms[:form_company].to_dict, 
-                                        @forms[:form_gov].to_dict)
-            generator.generate
-            @status_bar.text = "Vygenerováno"
-        else
-            @status_bar.text = "Chyba ve formuláři"
-        end  
+    show
+  end
+
+  def generate_letters
+    valid = true
+
+    @forms.each_value do |value|
+      valid = value.validate
     end
 
-    def reset_forms
-        @forms.each { |key, value| value.reset}
-        @status_bar.text = "Resetováno"
+    if valid
+      generator = LetterGenerator.new(@forms[:form_secretary].to_dict,
+                                      @forms[:form_company].to_dict,
+                                      @forms[:form_gov].to_dict)
+      generator.generate
+      @status_bar.text = 'Vygenerováno'
+    else
+      @status_bar.text = 'Chyba ve formuláři'
     end
+  end
 
+  def reset_forms
+    @forms.each_value(&:reset)
+    @status_bar.text = 'Resetováno'
+  end
 end
