@@ -19,6 +19,7 @@ class LetterGen < Qt::Widget
     #setFixedSize(WINDOW_X_SIZE, WINDOW_Y_SIZE)
 
     @forms = {
+      form_user: FormUser.new,
       form_secretary:  FormSecretary.new,
       form_company: FormCompany.new,
       form_gov: FormGov.new

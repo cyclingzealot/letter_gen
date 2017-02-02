@@ -10,10 +10,10 @@ class Form < Qt::Frame
   BUTTON_X_SIZE = 80
   BUTTON_Y_SIZE = 20
 
-  def initialize(form_name = 'Default')
+  def initialize(form_name = 'Default', form_fields = {})
     super()
     @form_name = form_name
-    @form_fields = {}
+    @form_fields = form_fields
     @status_bar = Qt::Label.new(form_name)
     @status_bar.setFont Qt::Font.new(@status_bar.font.family, 12)
 
@@ -25,6 +25,9 @@ class Form < Qt::Frame
     @layout.addWidget @status_bar
     @layout.addWidget @reset
     setFrameStyle(1)
+
+    @form_fields.each_value { |value| @layout.addWidget(value) }
+    setLayout @layout
   end
 
   def reset_form
@@ -62,26 +65,23 @@ end
 # Company's secretary information
 class FormSecretary < Form
   def initialize
-    super('Jednatel')
 
-    @form_fields = {
+    form_fields = {
       secretary_name: TextField.new('Jméno jednatele'),
       secretary_street: TextField.new('Ulice'),
       secretary_city: TextField.new('Město'),
       secretary_zip: TextField.new('PSČ')
     }
 
-    @form_fields.each_value { |value| @layout.addWidget(value) }
-    setLayout @layout
+    super('Jednatel', form_fields)
   end
 end
 
 # Company information
 class FormCompany < Form
   def initialize
-    super('Společnost')
 
-    @form_fields = {
+    form_fields = {
       company_name: TextField.new('Název společnosti'),
       company_street: TextField.new('Sídlo společnosti - ulice'),
       company_city: TextField.new('Sídlo společnosti - město'),
@@ -89,42 +89,39 @@ class FormCompany < Form
       company_id: TextField.new('IČO')
     }
 
-    @form_fields.each_value { |value| @layout.addWidget(value) }
-    setLayout @layout
+    super('Společnost', form_fields)
   end
 end
 
 # Finance bureau information
 class FormGov < Form
   def initialize
-    super('Úřady')
 
-    @form_fields = {
+    form_fields = {
       local_office: TextField.new('Územní pracoviště'),
       finance_address: TextField.new('Sídlo FÚ - ulice'),
       finance_office: TextField.new('Sídlo FÚ - město'),
       finance_zip: TextField.new('PSČ FÚ')
     }
 
-    @form_fields.each_value { |value| @layout.addWidget(value) }
-    setLayout @layout
+    super('Úřady', form_fields)
   end
 end
 
 # User's profile
-class FormProfile < Form
+class FormUser < Form
   def initialize
-    super('Profil')
 
-    @form_fields = {
-      name: TextField.new('Územní pracoviště'),
-      finance_address: TextField.new('Sídlo FÚ - ulice'),
-      finance_office: TextField.new('Sídlo FÚ - město'),
-      finance_zip: TextField.new('PSČ FÚ')
+    form_fields = {
+      user_name: TextField.new('Jméno'),
+      user_address: TextField.new('Adresa - ulice'),
+      user_city: TextField.new('Adresa - město'),
+      user_zipcode: TextField.new('PSČ'),
+      user_phone: TextField.new('Telefon'),
+      user_mail: TextField.new('E-mail')
     }
 
-    @form_fields.each_value { |value| @layout.addWidget(value) }
-    setLayout @layout
+    super('Profil', form_fields)
   end
 end
 
