@@ -45,6 +45,7 @@ class TextField < FormField
   end
 end
 
+# Class for court dates
 class DateField < FormField
   attr_accessor :data_field
 
