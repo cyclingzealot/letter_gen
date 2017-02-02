@@ -65,7 +65,7 @@ class DateField < FormField
   end
 
   def validate
-
+    true
   end
 
   def reset

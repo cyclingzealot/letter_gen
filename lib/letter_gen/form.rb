@@ -151,6 +151,8 @@ class FormUser < Form
   end
 
   def save_profile
+    return unless validate_form
+
     FileUtils.mkdir_p(PROFILE_PATH)
     File.open("#{PROFILE_PATH}/profile.json", 'w') { |f| f.write(to_dict.to_json) }
     @status_bar.text = 'Uloženo'
