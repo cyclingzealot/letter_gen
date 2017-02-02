@@ -2,7 +2,7 @@ require 'Qt'
 require 'fileutils'
 require 'json'
 
-require_relative 'form_field'
+require 'letter_gen/form_field'
 
 # Basic Form class
 class Form < Qt::Frame
@@ -95,8 +95,8 @@ class FormGov < Form
   def initialize
     form_fields = {
       local_office: TextField.new('Územní pracoviště'),
-      finance_address: TextField.new('Sídlo FÚ - ulice'),
-      finance_office: TextField.new('Sídlo FÚ - město'),
+      finance_street: TextField.new('Sídlo FÚ - ulice'),
+      finance_city: TextField.new('Sídlo FÚ - město'),
       finance_zip: TextField.new('PSČ FÚ'),
       court_mark: TextField.new('Značka soudu')
     }
@@ -126,7 +126,7 @@ class FormUser < Form
   def initialize
     form_fields = {
       user_name: TextField.new('Jméno'),
-      user_address: TextField.new('Adresa - ulice'),
+      user_street: TextField.new('Adresa - ulice'),
       user_city: TextField.new('Adresa - město'),
       user_zip: TextField.new('PSČ'),
       user_phone: TextField.new('Telefon'),
