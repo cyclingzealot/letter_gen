@@ -151,7 +151,7 @@ class FormUser < Form
     return unless validate_form
 
     FileUtils.mkdir_p(PROFILE_PATH)
-    File.open("#{PROFILE_PATH}/profile.json", 'w') { |f| f.write(to_dict.to_json) }
+    File.open("#{PROFILE_PATH}/profile.json", 'w') { |f| f.write(to_hash.to_json) }
     @status_bar.text = 'Uloženo'
   end
 
@@ -163,14 +163,15 @@ class FormUser < Form
     data = nil
     File.open("#{PROFILE_PATH}/profile.json", 'r') { |f| data = f.read }
 
-    if data != ''
+    begin
       data = JSON.parse(data)
-    else
-      @status_bar.text = 'Prázdný profil'
+    rescue JSON::ParserError
+      @status_bar.text = 'Neplatný profil'
       return
     end
 
     data.each do |key, value|
+      next if @form_fields[key.to_sym] == nil
       @form_fields[key.to_sym].text_field.text = value
     end
     @status_bar.text = 'Načteno'
