@@ -5,7 +5,7 @@ class LetterGenerator
   ROOT_PATH = File.dirname(__FILE__).freeze
   TEMPLATE_PATH = "#{ROOT_PATH}/templates/letter_template.tex".freeze
   LETTER_CLASS_PATH = "#{ROOT_PATH}/templates/myletter.cls".freeze
-  TARGET_PATH = 'dopisy'.freeze
+  TARGET_PATH = 'letters'.freeze
   PARA_PATH = "#{ROOT_PATH}/templates/paragraphs.xml".freeze
 
   def initialize(secretary_dict, company_dict, gov_dict, user_dict)

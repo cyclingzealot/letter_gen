@@ -1,4 +1,8 @@
 require 'Qt'
+require 'fileutils'
+require 'json'
+
+
 require_relative 'form_field'
 
 # Basic Form class
@@ -23,10 +27,10 @@ class Form < Qt::Frame
 
     @layout = Qt::VBoxLayout.new
     @layout.addWidget @status_bar
-    @layout.addWidget @reset
     setFrameStyle(1)
 
     @form_fields.each_value { |value| @layout.addWidget(value) }
+    @layout.addWidget @reset
     setLayout @layout
   end
 
@@ -110,6 +114,11 @@ end
 
 # User's profile
 class FormUser < Form
+
+  PROFILE_PATH = "#{Dir.home}/.config/letter_gen/profiles".freeze
+
+  slots 'save_profile()', 'load_profile()'
+
   def initialize
 
     form_fields = {
@@ -122,14 +131,39 @@ class FormUser < Form
     }
 
     super('Profil', form_fields)
+
+    saveb = Qt::PushButton.new(tr('Uložit'))
+    saveb.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
+    connect(saveb, SIGNAL('clicked()'), SLOT('save_profile()'))
+
+    loadb = Qt::PushButton.new(tr('Načíst'))
+    loadb.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
+    connect(loadb, SIGNAL('clicked()'), SLOT('load_profile()'))
+
+
+    @layout.addWidget saveb
+    @layout.addWidget loadb 
   end
 
-  def save
-
+  def save_profile
+    FileUtils.mkdir_p(PROFILE_PATH)
+    File.open("#{PROFILE_PATH}/profile.json", 'w') { |f| f.write(self.to_dict.to_json) }
+    @status_bar.text = 'Uloženo'    
   end
 
-  def load
-
+  def load_profile
+    
+    unless File.exists?("#{PROFILE_PATH}/profile.json")
+      @status_bar.text = 'Nenalezen žádný profil'
+      return
+    end
+      
+    data = nil
+    File.open("#{PROFILE_PATH}/profile.json", 'r') { |f| data = JSON.parse(f.read())}
+    data.each do |key, value|
+      @form_fields[key.to_sym].text_field.text = value
+    end
+    @status_bar.text = 'Načteno'
   end
 end
 
