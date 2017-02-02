@@ -52,10 +52,6 @@ class Form < Qt::Frame
   end
   alias validate validate_form
 
-  def print_form
-    @form_fields.each_value(&:print)
-  end
-
   def to_dict
     form_dict = {}
 

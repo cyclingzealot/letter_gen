@@ -40,10 +40,6 @@ class TextField < FormField
     @text_field.text = ''
   end
 
-  def print
-    p @text_field.text
-  end
-
   def to_s
     @text_field.text
   end
@@ -70,10 +66,6 @@ class DateField < FormField
 
   def reset
     @date_field.selectedDate = @today
-  end
-
-  def print
-    p to_s
   end
 
   def to_s
