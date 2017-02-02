@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'json'
 
 # Class for generating .tex files from templates and form input
 class LetterGenerator
@@ -6,7 +7,7 @@ class LetterGenerator
   TEMPLATE_PATH = "#{ROOT_PATH}/templates/letter_template.tex".freeze
   LETTER_CLASS_PATH = "#{ROOT_PATH}/templates/myletter.cls".freeze
   TARGET_PATH = 'letters'.freeze
-  PARA_PATH = "#{ROOT_PATH}/templates/paragraphs.xml".freeze
+  PARA_PATH = "#{ROOT_PATH}/templates/paragraphs.json".freeze
 
   def initialize(secretary_dict, company_dict, gov_dict, user_dict, dates_dict)
     @gen_data = {}
@@ -21,11 +22,13 @@ class LetterGenerator
     end
   end
 
-  def generate_letter(letter_name)
+  def generate_letter(letter_name, paragraph)
     letter_text = @template_text
     @gen_data.each do |key, value|
       letter_text = letter_text.gsub("$#{key}$", value.to_s)
     end
+
+    letter_text = letter_text.gsub('$paragraph$', paragraph)
 
     FileUtils.mkdir_p("#{TARGET_PATH}/#{letter_name}")
     File.open("#{TARGET_PATH}/#{letter_name}/#{letter_name}.tex", 'w') { |f| f.write(letter_text) }
@@ -35,6 +38,10 @@ class LetterGenerator
     FileUtils.mkdir_p("#{TARGET_PATH}/static")
     FileUtils.cp("#{LETTER_CLASS_PATH}", "#{TARGET_PATH}/static")
 
-    generate_letter('pokus')
+    paragraphs = File.open(PARA_PATH, 'r') { |f| f.read }
+    paragraphs = JSON.parse(paragraphs)
+
+    paragraphs.each { |para| generate_letter(para['name'], para['text'])}
+
   end
 end
