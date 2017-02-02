@@ -28,10 +28,10 @@ class LetterGen < Qt::Widget
       form_dates: FormDates.new
     }
 
-    generate = Qt::PushButton.new(tr('Generovat'))
+    generate = Qt::PushButton.new('Generovat')
     connect(generate, SIGNAL('clicked()'), SLOT('generate_letters()'))
 
-    reset = Qt::PushButton.new(tr('Reset'))
+    reset = Qt::PushButton.new('Reset')
     connect(reset, SIGNAL('clicked()'), SLOT('reset_forms()'))
 
     @status_bar = Qt::Label.new

@@ -20,7 +20,7 @@ class Form < Qt::Frame
     @status_bar = Qt::Label.new(form_name)
     @status_bar.setFont Qt::Font.new(@status_bar.font.family, 12)
 
-    @reset = Qt::PushButton.new(tr('Reset'))
+    @reset = Qt::PushButton.new('Reset')
     @reset.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
     connect(@reset, SIGNAL('clicked()'), SLOT('reset_form()'))
 
@@ -135,11 +135,11 @@ class FormUser < Form
 
     super('Profil', form_fields)
 
-    saveb = Qt::PushButton.new(tr('Uložit'))
+    saveb = Qt::PushButton.new('Uložit')
     saveb.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
     connect(saveb, SIGNAL('clicked()'), SLOT('save_profile()'))
 
-    loadb = Qt::PushButton.new(tr('Načíst'))
+    loadb = Qt::PushButton.new('Načíst')
     loadb.setFixedSize(BUTTON_X_SIZE, BUTTON_Y_SIZE)
     connect(loadb, SIGNAL('clicked()'), SLOT('load_profile()'))
 
