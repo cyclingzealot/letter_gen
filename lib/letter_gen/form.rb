@@ -110,3 +110,22 @@ class FormGov < Form
     setLayout @layout
   end
 end
+
+# User's profile
+class FormProfile < Form
+  def initialize
+    super('Profil')
+
+    @form_fields = {
+      name: TextField.new('Územní pracoviště'),
+      finance_address: TextField.new('Sídlo FÚ - ulice'),
+      finance_office: TextField.new('Sídlo FÚ - město'),
+      finance_zip: TextField.new('PSČ FÚ')
+    }
+
+    @form_fields.each_value { |value| @layout.addWidget(value) }
+    setLayout @layout
+  end
+end
+
+

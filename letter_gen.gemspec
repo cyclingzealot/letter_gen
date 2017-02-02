@@ -12,7 +12,9 @@ Gem::Specification.new do |s|
                    'lib/letter_gen/generator.rb', 
                    'lib/letter_gen/form_field.rb', 
                    'lib/letter_gen/templates/letter_template.tex', 
-                   'lib/letter_gen/templates/paragraphs.xml']
+                   'lib/letter_gen/templates/paragraphs.xml',
+                   'lib/letter_gen/templates/myletter.cls'
+                  ]
 	s.homepage = 'https://github.com/ggljzr/letter-gen'
 	s.license =  'MIT'
 	s.add_dependency 'qtbindings', '4.8.6.3'

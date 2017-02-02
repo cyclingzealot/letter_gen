@@ -16,7 +16,7 @@ class LetterGen < Qt::Widget
     super()
 
     setWindowTitle 'Generátor dopisů'
-    setFixedSize(WINDOW_X_SIZE, WINDOW_Y_SIZE)
+    #setFixedSize(WINDOW_X_SIZE, WINDOW_Y_SIZE)
 
     @forms = {
       form_secretary:  FormSecretary.new,

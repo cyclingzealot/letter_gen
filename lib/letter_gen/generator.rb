@@ -4,6 +4,7 @@ require 'fileutils'
 class LetterGenerator
   ROOT_PATH = File.dirname(__FILE__).freeze
   TEMPLATE_PATH = "#{ROOT_PATH}/templates/letter_template.tex".freeze
+  LETTER_CLASS_PATH = "#{ROOT_PATH}/templates/myletter.cls".freeze
   TARGET_PATH = 'dopisy'.freeze
   PARA_PATH = "#{ROOT_PATH}/templates/paragraphs.xml".freeze
 
@@ -29,6 +30,9 @@ class LetterGenerator
   end
 
   def generate
+    FileUtils.mkdir_p("#{TARGET_PATH}/static")
+    FileUtils.cp("#{LETTER_CLASS_PATH}", "#{TARGET_PATH}/static")
+
     generate_letter('pokus')
   end
 end

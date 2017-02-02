@@ -54,3 +54,6 @@ dopisy
 
 #latex logs
 *.log
+
+#vim swap files
+*.swp
