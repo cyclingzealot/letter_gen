@@ -9,8 +9,8 @@
 
 \fancypagestyle{plain}{
 \fancyhf{}
-\fancyhead[C]{Ing. Anon Anon -- likvidátor \\ 152 33 Praha 4, U Úlů 321/1\\ E-mail: necolol@email.cz, Tel: 722 222 222 }
-\fancyfoot[C]{{Ing. Anon Anon -- likvidátor \\ 152 33 Praha 4, U Úlů 321/1 }
+\fancyhead[C]{$user_name$ -- likvidátor \\ $user_zip$ $user_city$, $user_address$\\ E-mail: $user_mail$, Tel: $user_phone$ }
+\fancyfoot[C]{{$user_name$ -- likvidátor \\ $user_zip$ $user_city$, $user_address$ }
   }
 }
 
@@ -23,20 +23,20 @@
 
 \makeatother
 
-\address{--secretary_name-- \\ --secretary_street-- \\ --secretary_city-- \\ --secretary_zip-- }
+\address{$secretary_name$ \\ $secretary_street$ \\ $secretary_city$ \\ $secretary_zip$ }
 \begin{document}
 
 \begin{letter}{}
 \opening{V Praze dne \today}
-Věc: zrušení společnosti \textbf{--company_name--} v likvidaci - žádost o součinnost                  
+    Věc: zrušení společnosti \textbf{$company_name$} v likvidaci - žádost o součinnost                  
 
-Usnesením Městského soudu v Praze Sp.zn. 75 Cm 187/2011 ze dne --datum--, které nabylo právní moci --datum-moc-- bylo rozhodnuto o zrušení společnosti --company_name--, se sídlem --company_street--, --company_city--,  IČ: \textbf{--company_id--} s likvidací. Citovaným usnesením soudu jsem byl zároveň jmenován likvidátorem.  
+Usnesením Městského soudu v Praze Sp.zn. 75 Cm 187/2011 ze dne $datum$, které nabylo právní moci $datum-moc$ bylo rozhodnuto o zrušení společnosti $company_name$, se sídlem $company_street$, --company_city--,  IČ: \textbf{--company_id--} s likvidací. Citovaným usnesením soudu jsem byl zároveň jmenován likvidátorem.  
 
 --paragraph--
 
 \hspace*{5cm}
 
-\closing{..........................................\\ Ing. Anon Anon \\ U Úlů 8, 354 00 Praha 66}
+\closing{..........................................\\ $user_name$ \\ $user_address$, $user_city$}
 \end{letter}
 \end{document}
 

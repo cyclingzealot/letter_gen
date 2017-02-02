@@ -8,11 +8,12 @@ class LetterGenerator
   TARGET_PATH = 'dopisy'.freeze
   PARA_PATH = "#{ROOT_PATH}/templates/paragraphs.xml".freeze
 
-  def initialize(secretary_dict, company_dict, gov_dict)
+  def initialize(secretary_dict, company_dict, gov_dict, user_dict)
     @gen_data = {}
     @gen_data = @gen_data.merge(secretary_dict)
     @gen_data = @gen_data.merge(company_dict)
     @gen_data = @gen_data.merge(gov_dict)
+    @gen_data = @gen_data.merge(user_dict)
 
     File.open(TEMPLATE_PATH, 'r') do |f|
       @template_text = f.read
@@ -22,7 +23,7 @@ class LetterGenerator
   def generate_letter(letter_name)
     letter_text = @template_text
     @gen_data.each do |key, value|
-      letter_text = letter_text.gsub("--#{key}--", value.to_s)
+      letter_text = letter_text.gsub("$#{key}$", value.to_s)
     end
 
     FileUtils.mkdir_p("#{TARGET_PATH}/#{letter_name}")

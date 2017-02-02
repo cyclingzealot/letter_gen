@@ -123,6 +123,14 @@ class FormUser < Form
 
     super('Profil', form_fields)
   end
+
+  def save
+
+  end
+
+  def load
+
+  end
 end
 
 
