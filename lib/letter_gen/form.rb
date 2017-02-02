@@ -108,6 +108,18 @@ class FormGov < Form
   end
 end
 
+# Court dates form
+class FormDates < Form
+    def initialize
+    form_fields = {
+        date_order: DateField.new('Usnesení ze dne'),
+        date_effect: DateField.new('Nabylo moci')
+    }
+
+    super('Data', form_fields)
+    end
+end
+
 # User's profile
 class FormUser < Form
   PROFILE_PATH = "#{Dir.home}/.config/letter_gen/profiles".freeze

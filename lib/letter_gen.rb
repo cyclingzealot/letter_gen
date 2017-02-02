@@ -22,7 +22,8 @@ class LetterGen < Qt::Widget
       form_user: FormUser.new,
       form_secretary:  FormSecretary.new,
       form_company: FormCompany.new,
-      form_gov: FormGov.new
+      form_gov: FormGov.new,
+      form_dates: FormDates.new
     }
 
     generate = Qt::PushButton.new(tr('Generovat'))

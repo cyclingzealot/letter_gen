@@ -22,7 +22,7 @@ end
 class TextField < FormField
   attr_accessor :text_field
 
-  def initialize(field_name = 'Default')
+  def initialize(field_name = 'Default Text')
     super(field_name)
 
     @text_field = Qt::LineEdit.new
@@ -46,5 +46,37 @@ class TextField < FormField
 
   def to_s
     @text_field.text
+  end
+end
+
+class DateField < FormField
+  attr_accessor :data_field
+
+  DATE_FORMAT = 'd. M. yyyy'.freeze
+  
+  def initialize(field_name = 'Default Date')
+    super(field_name)
+
+    @date_field = Qt::CalendarWidget.new
+    @today = @date_field.selectedDate
+    @layout.addWidget @date_field
+
+    setLayout @layout
+  end
+
+  def validate
+
+  end
+
+  def reset
+    @date_field.selectedDate = @today
+  end
+
+  def print
+    p to_s
+  end
+
+  def to_s
+    @date_field.selectedDate.toString(DATE_FORMAT)
   end
 end
