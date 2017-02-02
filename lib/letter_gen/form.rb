@@ -52,12 +52,12 @@ class Form < Qt::Frame
   end
   alias validate validate_form
 
-  def to_dict
-    form_dict = {}
+  def to_hash
+    form_hash = {}
 
-    @form_fields.each { |key, value| form_dict[key] = value.to_s }
+    @form_fields.each { |key, value| form_hash[key] = value.to_s }
 
-    form_dict
+    form_hash
   end
 end
 

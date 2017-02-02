@@ -3,19 +3,16 @@ require 'json'
 
 # Class for generating .tex files from templates and form input
 class LetterGenerator
+  attr_reader :gen_data
+
   ROOT_PATH = File.dirname(__FILE__).freeze
   TEMPLATE_PATH = "#{ROOT_PATH}/templates/letter_template.tex".freeze
   LETTER_CLASS_PATH = "#{ROOT_PATH}/templates/myletter.cls".freeze
   TARGET_PATH = 'letters'.freeze
   PARA_PATH = "#{ROOT_PATH}/templates/paragraphs.json".freeze
 
-  def initialize(secretary_dict, company_dict, gov_dict, user_dict, dates_dict)
-    @gen_data = {}
-    @gen_data = @gen_data.merge(secretary_dict)
-    @gen_data = @gen_data.merge(company_dict)
-    @gen_data = @gen_data.merge(gov_dict)
-    @gen_data = @gen_data.merge(user_dict)
-    @gen_data = @gen_data.merge(dates_dict)
+  def initialize(data)
+    @gen_data = data
 
     File.open(TEMPLATE_PATH, 'r') do |f|
       @template_text = f.read
