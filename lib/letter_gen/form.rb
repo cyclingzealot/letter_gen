@@ -101,7 +101,8 @@ class FormGov < Form
       local_office: TextField.new('Územní pracoviště'),
       finance_address: TextField.new('Sídlo FÚ - ulice'),
       finance_office: TextField.new('Sídlo FÚ - město'),
-      finance_zip: TextField.new('PSČ FÚ')
+      finance_zip: TextField.new('PSČ FÚ'),
+      court_mark: TextField.new('Značka soudu')
     }
 
     super('Úřady', form_fields)
