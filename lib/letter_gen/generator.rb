@@ -8,12 +8,13 @@ class LetterGenerator
   TARGET_PATH = 'letters'.freeze
   PARA_PATH = "#{ROOT_PATH}/templates/paragraphs.xml".freeze
 
-  def initialize(secretary_dict, company_dict, gov_dict, user_dict)
+  def initialize(secretary_dict, company_dict, gov_dict, user_dict, dates_dict)
     @gen_data = {}
     @gen_data = @gen_data.merge(secretary_dict)
     @gen_data = @gen_data.merge(company_dict)
     @gen_data = @gen_data.merge(gov_dict)
     @gen_data = @gen_data.merge(user_dict)
+    @gen_data = @gen_data.merge(dates_dict)
 
     File.open(TEMPLATE_PATH, 'r') do |f|
       @template_text = f.read

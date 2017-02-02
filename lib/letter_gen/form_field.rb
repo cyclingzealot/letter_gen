@@ -41,7 +41,7 @@ class TextField < FormField
   end
 
   def to_s
-    @text_field.text
+    @text_field.text.force_encoding('UTF-8')
   end
 end
 

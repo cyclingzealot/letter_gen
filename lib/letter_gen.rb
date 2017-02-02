@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'Qt'
 require 'letter_gen/form'
 require 'letter_gen/generator'
@@ -65,7 +67,9 @@ class LetterGen < Qt::Widget
     if valid
       generator = LetterGenerator.new(@forms[:form_secretary].to_dict,
                                       @forms[:form_company].to_dict,
-                                      @forms[:form_gov].to_dict)
+                                      @forms[:form_gov].to_dict,
+                                      @forms[:form_user].to_dict,
+                                      @forms[:form_dates].to_dict)
       generator.generate
       @status_bar.text = 'Vygenerováno'
     else
