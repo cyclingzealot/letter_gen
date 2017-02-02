@@ -161,7 +161,15 @@ class FormUser < Form
       return
     end
     data = nil
-    File.open("#{PROFILE_PATH}/profile.json", 'r') { |f| data = JSON.parse(f.read) }
+    File.open("#{PROFILE_PATH}/profile.json", 'r') { |f| data = f.read }
+
+    if data != ''
+      data = JSON.parse(data)
+    else
+      @status_bar.text = 'Prázdný profil'
+      return
+    end
+
     data.each do |key, value|
       @form_fields[key.to_sym].text_field.text = value
     end
