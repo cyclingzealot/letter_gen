@@ -58,7 +58,7 @@ Unique sections are defined in ``lib/letter_gen/templates/paragraphs.json``. Jso
 ]
 ```
 
-Attribute ``name`` is used for in folders in ``letters`` folder. Attribute ``text`` is inserted in place of ``$paragraph$`` placeholder in  TeX template. So far this file is hardcoded within gem package, in the future I plan to add an option to edit it via GUI. It now also contains only two items (so only two letters are generated) for demonstration purposes.
+Attribute ``name`` is used for name of folders in ``letters`` folder. Attribute ``text`` is inserted in place of ``$paragraph$`` placeholder in  TeX template. So far this file is hardcoded within gem package, in the future I plan to add an option to edit it via GUI. It now also contains only two items (so only two letters are generated) for demonstration purposes.
 
 
 
