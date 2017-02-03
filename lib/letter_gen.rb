@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'Qt'
 require 'letter_gen/form'
 require 'letter_gen/generator'
@@ -18,7 +16,6 @@ class LetterGen < Qt::Widget
     super()
 
     setWindowTitle 'Generátor dopisů'
-    #setFixedSize(WINDOW_X_SIZE, WINDOW_Y_SIZE)
 
     @forms = {
       form_user: FormUser.new,
@@ -59,7 +56,7 @@ class LetterGen < Qt::Widget
 
   def forms_to_hash
     data = {}
-    
+
     @forms.each_value { |value| data = data.merge(value.to_hash) }
 
     data

@@ -14,9 +14,7 @@ class LetterGenerator
   def initialize(data)
     @gen_data = data
 
-    File.open(TEMPLATE_PATH, 'r') do |f|
-      @template_text = f.read
-    end
+    @template_text = File.open(TEMPLATE_PATH, 'r', &:read)
   end
 
   def generate_letter(letter_name, paragraph)
@@ -28,17 +26,17 @@ class LetterGenerator
     letter_text = letter_text.gsub('$paragraph$', paragraph)
 
     FileUtils.mkdir_p("#{TARGET_PATH}/#{letter_name}")
-    File.open("#{TARGET_PATH}/#{letter_name}/#{letter_name}.tex", 'w') { |f| f.write(letter_text) }
+    File.open("#{TARGET_PATH}/#{letter_name}/#{letter_name}.tex",
+              'w') { |f| f.write(letter_text) }
   end
 
   def generate
     FileUtils.mkdir_p("#{TARGET_PATH}/static")
-    FileUtils.cp("#{LETTER_CLASS_PATH}", "#{TARGET_PATH}/static")
+    FileUtils.cp(LETTER_CLASS_PATH, "#{TARGET_PATH}/static")
 
-    paragraphs = File.open(PARA_PATH, 'r') { |f| f.read }
+    paragraphs = File.open(PARA_PATH, 'r', &:read)
     paragraphs = JSON.parse(paragraphs)
 
-    paragraphs.each { |para| generate_letter(para['name'], para['text'])}
-
+    paragraphs.each { |para| generate_letter(para['name'], para['text']) }
   end
 end

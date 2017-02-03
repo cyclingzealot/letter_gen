@@ -107,14 +107,13 @@ end
 
 # Court dates form
 class FormDates < Form
-    def initialize
+  def initialize
     form_fields = {
-        date_order: DateField.new('Usnesení ze dne'),
-        date_effect: DateField.new('Nabylo moci')
+      date_order: DateField.new('Usnesení ze dne'),
+      date_effect: DateField.new('Nabylo moci')
     }
-
     super('Data', form_fields)
-    end
+  end
 end
 
 # User's profile
@@ -151,7 +150,8 @@ class FormUser < Form
     return unless validate_form
 
     FileUtils.mkdir_p(PROFILE_PATH)
-    File.open("#{PROFILE_PATH}/profile.json", 'w') { |f| f.write(to_hash.to_json) }
+    File.open("#{PROFILE_PATH}/profile.json",
+              'w') { |f| f.write(to_hash.to_json) }
     @status_bar.text = 'Uloženo'
   end
 
@@ -160,8 +160,8 @@ class FormUser < Form
       @status_bar.text = 'Nenalezen žádný profil'
       return
     end
-    data = nil
-    File.open("#{PROFILE_PATH}/profile.json", 'r') { |f| data = f.read }
+
+    data = File.open("#{PROFILE_PATH}/profile.json", 'r', &:read)
 
     begin
       data = JSON.parse(data)
@@ -171,7 +171,7 @@ class FormUser < Form
     end
 
     data.each do |key, value|
-      next if @form_fields[key.to_sym] == nil
+      next if @form_fields[key.to_sym].nil?
       @form_fields[key.to_sym].text_field.text = value
     end
     @status_bar.text = 'Načteno'

@@ -50,7 +50,7 @@ class DateField < FormField
   attr_accessor :data_field
 
   DATE_FORMAT = 'd. M. yyyy'.freeze
-  
+
   def initialize(field_name = 'Default Date')
     super(field_name)
 
