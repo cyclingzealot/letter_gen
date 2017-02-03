@@ -8,7 +8,7 @@ This particular application generates letters that are required in insolvency pr
 
 In each case these letters are the same, only differences are things like company name or address. Letters also don't differ very much from each other, usually there is some kind of introduction (same in each letter), then paragraph or two about what exactly you want, then some closure and contact information. There is quite a lot of letters you have to send and editing them manually can be tedious.
 
-So idea is that you fill out a form with the case information and your contact and application uses predefined templates to generate letters for you.
+So idea is that you fill out a form with the case information/contact info and application will use predefined templates to generate letters for you.
 
 ### Note about language
 
@@ -31,7 +31,7 @@ Then you can run it with:
 $ ./bin/letter_gen
 ```
 
-Application is build with [Qt](https://www.qt.io/https://www.qt.io/), and it requires [qtbindings](https://github.com/ryanmelt/qtbindings) gem. This gem should be collected automatically, however you have to have Qt4 installed.
+Application is built with [Qt](https://www.qt.io/https://www.qt.io/), and it requires [qtbindings](https://github.com/ryanmelt/qtbindings) gem. This gem should be collected automatically, however you have to have Qt4 installed.
 
 ##Usage
 
