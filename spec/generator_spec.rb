@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
 require 'letter_gen/generator'
 require_relative 'spec_helper'
+require 'fakefs/spec_helpers'
+require 'pp'
 
 describe 'LetterGenerator' do
+  include FakeFS::SpecHelpers
 
   before(:each) do
     @mock_data = {
@@ -30,6 +33,15 @@ describe 'LetterGenerator' do
       company_id: '123456789'
     }
 
+    @mock_paragraph = {
+      name: 'test_letter',
+      text: 'test text'
+    }
+   
+    @test_root = File.dirname(__FILE__)
+    FakeFS::FileSystem.clone("#{LetterGenerator::ROOT_PATH}/templates")
+    FakeFS::FileSystem.clone(@test_root)
+
     @generator = LetterGenerator.new(@mock_data)
   end
 
@@ -43,8 +55,27 @@ describe 'LetterGenerator' do
     it { expect(@generator.gen_data[:user_name]).to eq @mock_data[:user_name] }
   end
 
-  context '' do
+  context 'it loads .tex template from a file' do
+    it { expect(@generator.instance_variable_get(:@template_text).include? '/documentclass')}
+  end
 
+  context 'it creates letter from input hash' do
+    it 'creates folder with .tex file for a new letter' do
+      FakeFS.activate!  
+      @generator.generate_letter('test_letter', @mock_paragraph[:text])
+      expect(File.exist? "#{LetterGenerator::TARGET_PATH}/test_letter/test_letter.tex").to be true
+      FakeFS.deactivate!
+    end
+
+    it 'creates .tex file with text from input hash and paragraphs' do
+      FakeFS.activate!
+      @generator.generate_letter('test_letter', @mock_paragraph[:text])
+      letter_text = File.open("#{LetterGenerator::TARGET_PATH}/test_letter/test_letter.tex", 'r', &:read)
+      
+      expect(letter_text.include? @mock_data[:user_name]).to be true
+      expect(letter_text.include? @mock_paragraph[:text]).to be true
+      FakeFS.deactivate!
+    end
   end
 
 end
