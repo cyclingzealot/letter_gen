@@ -2,7 +2,7 @@
 require 'letter_gen/generator'
 require_relative 'spec_helper'
 require 'fakefs/spec_helpers'
-require 'pp'
+require 'json'
 
 describe 'LetterGenerator' do
   include FakeFS::SpecHelpers
@@ -33,10 +33,16 @@ describe 'LetterGenerator' do
       company_id: '123456789'
     }
 
-    @mock_paragraph = {
-      name: 'test_letter',
-      text: 'test text'
-    }
+    @mock_paragraphs = [
+      {
+        name: 'test_letter',
+        text: 'test text'
+      },
+      {
+        name: 'test_letter_2',
+        text: 'some different text'  
+      }
+    ]
    
     @test_root = File.dirname(__FILE__)
     FakeFS::FileSystem.clone("#{LetterGenerator::ROOT_PATH}/templates")
@@ -62,20 +68,34 @@ describe 'LetterGenerator' do
   context 'it creates letter from input hash' do
     it 'creates folder with .tex file for a new letter' do
       FakeFS.activate!  
-      @generator.generate_letter('test_letter', @mock_paragraph[:text])
+      @generator.generate_letter('test_letter', @mock_paragraphs[0][:text])
       expect(File.exist? "#{LetterGenerator::TARGET_PATH}/test_letter/test_letter.tex").to be true
       FakeFS.deactivate!
     end
 
     it 'creates .tex file with text from input hash and paragraphs' do
       FakeFS.activate!
-      @generator.generate_letter('test_letter', @mock_paragraph[:text])
+      @generator.generate_letter('test_letter', @mock_paragraphs[0][:text])
       letter_text = File.open("#{LetterGenerator::TARGET_PATH}/test_letter/test_letter.tex", 'r', &:read)
       
       expect(letter_text.include? @mock_data[:user_name]).to be true
-      expect(letter_text.include? @mock_paragraph[:text]).to be true
+      expect(letter_text.include? @mock_paragraphs[0][:text]).to be true
       FakeFS.deactivate!
     end
   end
 
+  context 'generating several letters with paragraphs.json file' do
+    it 'generates letters according to @mock_paragraphs' do
+      FakeFS.activate!
+    
+      File.open("#{LetterGenerator::PARA_PATH}", 'w') { |f| f.write(@mock_paragraphs.to_json)}
+      @generator.generate
+   
+      @mock_paragraphs.each do |letter|
+        expect(File.exists? "#{LetterGenerator::TARGET_PATH}/#{letter[:name]}/#{letter[:name]}.tex").to be true
+      end 
+       
+      FakeFS.deactivate!
+    end 
+  end
 end
