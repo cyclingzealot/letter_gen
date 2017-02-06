@@ -128,7 +128,7 @@ class FormUser < Form
       user_street: TextField.new('Adresa - ulice'),
       user_city: TextField.new('Adresa - město'),
       user_zip: TextField.new('PSČ'),
-      user_phone: TextField.new('Telefon'),
+      user_phone: PhoneField.new('Telefon'),
       user_mail: TextField.new('E-mail')
     }
 

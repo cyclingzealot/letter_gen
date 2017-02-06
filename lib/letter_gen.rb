@@ -66,7 +66,7 @@ class LetterGen < Qt::Widget
     valid = true
 
     @forms.each_value do |value|
-      valid = value.validate
+      valid &= value.validate
     end
 
     if valid

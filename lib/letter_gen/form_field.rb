@@ -2,19 +2,16 @@ require 'Qt'
 
 # Basic form field class (label)
 class FormField < Qt::Widget
-  attr_accessor :field_name
+  attr_accessor :field_name, :error_message
 
   def initialize(field_name = 'Default')
     super()
 
     @field_name = field_name
-    @label = Qt::Label.new "#{field_name}:"
+    @label = Qt::Label.new @field_name
     @layout = Qt::VBoxLayout.new
     @layout.addWidget @label
-  end
-
-  def error_message
-    "Pole #{@field_name} nesmí být prázdné."
+    @error_message = "Pole #{@field_name} nesmí být prázdné."
   end
 end
 
@@ -47,7 +44,7 @@ end
 
 # Class for court dates
 class DateField < FormField
-  attr_accessor :data_field
+  attr_accessor :date_field
 
   DATE_FORMAT = 'd. M. yyyy'.freeze
 
@@ -71,5 +68,46 @@ class DateField < FormField
 
   def to_s
     @date_field.selectedDate.toString(DATE_FORMAT)
+  end
+end
+
+class PhoneField < TextField
+  PHONE_NUM_LEN = 9
+    
+  def initialize(field_name = 'Default Phone')
+    super(field_name)
+  end
+    
+  def validate
+    if @text_field.text.empty?
+      @error_message = "Pole #{@field_name} nesmí být prázdné."
+      return false
+    end
+
+    phone = @text_field.text.delete(' ')
+
+    if phone.length != 9
+      @error_message = "Číslo musí mít 9 znaků"
+      return false
+    end
+
+    if phone[/[0-9]+/] != phone
+      @error_message = 'Číslo musí obsahovat pouze číslice'
+      return false
+    end
+
+    true
+  end
+
+  def to_s
+    phone = @text_field.text.delete(' ')
+
+    begin
+      (3..(PHONE_NUM_LEN + 3)).step(4) { |i| phone.insert(i, ' ') }
+    rescue IndexError
+      phone = @text_field.text
+    end
+
+    phone 
   end
 end
