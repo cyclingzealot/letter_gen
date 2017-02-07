@@ -102,12 +102,6 @@ class PhoneField < TextField
   def to_s
     phone = @text_field.text.delete(' ')
 
-    begin
-      (3..(PHONE_NUM_LEN + 3)).step(4) { |i| phone.insert(i, ' ') }
-    rescue IndexError
-      phone = @text_field.text
-    end
-
-    phone 
+    "#{phone[0...3]} #{phone[3...6]} #{phone[6...9]}"
   end
 end
