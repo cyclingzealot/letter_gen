@@ -12,7 +12,7 @@ So idea is that you fill out a form with the case information/contact info and a
 
 ### Note about language
 
-This application's GUI is written in Czech.
+This application's GUI is written in Czech. Generated letters are also in Czech.
 
 ##Installation
 
@@ -60,5 +60,13 @@ Unique sections are defined in ``lib/letter_gen/templates/paragraphs.json``. Jso
 
 Attribute ``name`` is used for name of folders in ``letters`` folder. Attribute ``text`` is inserted in place of ``$paragraph$`` placeholder in  TeX template. So far this file is hardcoded within gem package, in the future I plan to add an option to edit it via GUI. It now also contains only two items (so only two letters are generated) for demonstration purposes.
 
+## Testing
 
+This repository also contains set of unit test for the application. Tests use [rspec](http://rspec.info/) framework and can be run with ``rspec`` command.
+
+Because application generates folders and files, [fakefs](https://github.com/fakefs/fakefs) gem is used in tests to mock file system (so you don't have to worry about created files when you run tests). This gem however is not included in basic dependencies. To install testing dependecies use
+
+```
+$ gem install --dev letter_gen-0.1.0.gem
+```
 
