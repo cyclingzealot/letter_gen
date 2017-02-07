@@ -4,7 +4,7 @@ require 'Qt'
 class FormField < Qt::Widget
   attr_accessor :field_name, :error_message
 
-  def initialize(field_name = 'Default')
+  def initialize(field_name)
     super()
 
     @field_name = field_name
@@ -19,7 +19,7 @@ end
 class TextField < FormField
   attr_accessor :text_field
 
-  def initialize(field_name = 'Default Text')
+  def initialize(field_name)
     super(field_name)
 
     @text_field = Qt::LineEdit.new
@@ -30,7 +30,7 @@ class TextField < FormField
   end
 
   def validate
-    @text_field.text.to_s != ''
+    !@text_field.text.empty?
   end
 
   def reset
@@ -48,7 +48,7 @@ class DateField < FormField
 
   DATE_FORMAT = 'd. M. yyyy'.freeze
 
-  def initialize(field_name = 'Default Date')
+  def initialize(field_name)
     super(field_name)
 
     @date_field = Qt::CalendarWidget.new
@@ -71,11 +71,11 @@ class DateField < FormField
   end
 end
 
-class PhoneField < TextField
-  PHONE_NUM_LEN = 9
-    
-  def initialize(field_name = 'Default Phone')
+class FixedNumField < TextField
+  def initialize(field_name, length, bins=[length])
     super(field_name)
+    @req_length = length
+    @bins = bins
   end
     
   def validate
@@ -84,15 +84,15 @@ class PhoneField < TextField
       return false
     end
 
-    phone = @text_field.text.delete(' ')
+    stripped = @text_field.text.delete(' ')
 
-    if phone.length != 9
-      @error_message = "Číslo musí mít 9 znaků"
+    if stripped.length != @req_length
+      @error_message = "Číslo musí mít #{@req_length} číslic."
       return false
     end
 
-    if phone[/[0-9]+/] != phone
-      @error_message = 'Číslo musí obsahovat pouze číslice'
+    if stripped[/[0-9]+/] != stripped
+      @error_message = 'Číslo musí obsahovat pouze číslice.'
       return false
     end
 
@@ -100,8 +100,15 @@ class PhoneField < TextField
   end
 
   def to_s
-    phone = @text_field.text.delete(' ')
+    stripped = @text_field.text.delete(' ')
 
-    "#{phone[0...3]} #{phone[3...6]} #{phone[6...9]}"
+    formated_string = ''
+
+    @bins.each do |bin|
+      formated_string += "#{stripped[0...bin]} "
+      stripped = stripped[bin..-1]
+    end
+
+    formated_string.strip
   end
 end
