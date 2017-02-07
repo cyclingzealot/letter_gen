@@ -68,7 +68,7 @@ class FormSecretary < Form
       secretary_name: TextField.new('Jméno jednatele'),
       secretary_street: TextField.new('Ulice'),
       secretary_city: TextField.new('Město'),
-      secretary_zip: TextField.new('PSČ')
+      secretary_zip: FixedNumField.new('PSČ', 5, [3, 2])
     }
 
     super('Jednatel', form_fields)
@@ -82,7 +82,7 @@ class FormCompany < Form
       company_name: TextField.new('Název společnosti'),
       company_street: TextField.new('Sídlo společnosti - ulice'),
       company_city: TextField.new('Sídlo společnosti - město'),
-      company_zip: TextField.new('PSČ společnosti'),
+      company_zip: FixedNumField.new('PSČ společnosti', 5, [3, 2]),
       company_id: TextField.new('IČO')
     }
 
@@ -97,7 +97,7 @@ class FormGov < Form
       local_office: TextField.new('Územní pracoviště'),
       finance_street: TextField.new('Sídlo FÚ - ulice'),
       finance_city: TextField.new('Sídlo FÚ - město'),
-      finance_zip: TextField.new('PSČ FÚ'),
+      finance_zip: FixedNumField.new('PSČ FÚ', 5, [3, 2]),
       court_mark: TextField.new('Značka soudu')
     }
 
@@ -127,7 +127,7 @@ class FormUser < Form
       user_name: TextField.new('Jméno'),
       user_street: TextField.new('Adresa - ulice'),
       user_city: TextField.new('Adresa - město'),
-      user_zip: TextField.new('PSČ'),
+      user_zip: FixedNumField.new('PSČ', 5, [3, 2]),
       user_phone: FixedNumField.new('Telefon', 9, [3,3,3]),
       user_mail: TextField.new('E-mail')
     }

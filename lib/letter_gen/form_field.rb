@@ -87,12 +87,12 @@ class FixedNumField < TextField
     stripped = @text_field.text.delete(' ')
 
     if stripped.length != @req_length
-      @error_message = "Číslo musí mít #{@req_length} číslic."
+      @error_message = "Pole #{@field_name} musí mít #{@req_length} číslic."
       return false
     end
 
     if stripped[/[0-9]+/] != stripped
-      @error_message = 'Číslo musí obsahovat pouze číslice.'
+      @error_message = "Pole #{@field_name} musí obsahovat pouze číslice."
       return false
     end
 
