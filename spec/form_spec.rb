@@ -57,6 +57,13 @@ describe 'Form' do
     it 'convert user input to hash' do
       expect(@test_form.to_hash).to eq @mock_data
     end
+
+    it 'sets error message' do
+      @test_form.reset_form
+      @test_form.validate_form
+      expect(@test_form.instance_variable_get(:@status_bar).text).to match /^Pole .* ne.*$/
+    end
+
   end
 end
 
