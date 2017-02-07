@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
 	s.homepage = 'https://github.com/ggljzr/letter-gen'
 	s.license =  'MIT'
 	s.add_dependency 'qtbindings', '4.8.6.3'
-        s.add_developement_dependency 'fakefs', '0.10.2'
+        s.add_development_dependency 'fakefs', '0.10.2'
 end
