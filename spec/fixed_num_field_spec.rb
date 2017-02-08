@@ -3,7 +3,7 @@ require 'letter_gen/form_field'
 require_relative 'spec_helper'
 require 'Qt'
 
-describe 'TextField' do
+describe 'FixedNumField' do
 
   before(:each) do
   
