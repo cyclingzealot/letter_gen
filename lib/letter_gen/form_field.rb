@@ -71,6 +71,16 @@ class DateField < FormField
   end
 end
 
+# Class for numeric input with fixed length (for example phone number).
+#
+# Bins parameter is used for output formattig (to_s method),
+# it splits input string into parts of given length separated with space.
+# 
+# For example with bins=[3,3,3] the input '123456789' is formatted to
+# '123 456 789'.
+#
+# to_s method doesnt check if sum of bins == length, so it's behaviour
+# is kinda best effort.
 class FixedNumField < TextField
   def initialize(field_name, length, bins=[length])
     super(field_name)

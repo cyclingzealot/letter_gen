@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'letter_gen/generator'
+require 'letter_gen/letter_generator'
 require_relative 'spec_helper'
 require 'fakefs/spec_helpers'
 require 'json'

@@ -1,6 +1,6 @@
 require 'Qt'
 require 'letter_gen/form'
-require 'letter_gen/generator'
+require 'letter_gen/letter_generator'
 
 # Main qtapp class
 class LetterGen < Qt::Widget

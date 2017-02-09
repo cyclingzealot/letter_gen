@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 	s.email = 'gogo.lejzr@gmail.com'
         s.files = ['lib/letter_gen.rb', 
                    'lib/letter_gen/form.rb', 
-                   'lib/letter_gen/generator.rb', 
+                   'lib/letter_gen/letter_generator.rb', 
                    'lib/letter_gen/form_field.rb', 
                    'lib/letter_gen/templates/letter_template.tex', 
                    'lib/letter_gen/templates/paragraphs.json',
