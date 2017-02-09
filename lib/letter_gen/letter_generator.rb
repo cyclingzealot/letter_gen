@@ -19,11 +19,12 @@ class LetterGenerator
 
   def generate_letter(letter_name, paragraph)
     letter_text = @template_text
+    
+    letter_text = letter_text.gsub('$paragraph$', paragraph)
+
     @gen_data.each do |key, value|
       letter_text = letter_text.gsub("$#{key}$", value.to_s)
     end
-
-    letter_text = letter_text.gsub('$paragraph$', paragraph)
 
     FileUtils.mkdir_p("#{TARGET_PATH}/#{letter_name}")
     File.open("#{TARGET_PATH}/#{letter_name}/#{letter_name}.tex",
