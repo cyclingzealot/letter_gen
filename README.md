@@ -2,7 +2,7 @@
 
 This application generates letters from predefined templates and user input.
 
-##Basic Idea
+## Basic Idea
 
 This particular application generates letters that are required in insolvency proceedings. For each insolvency case you need to send different letters to different parties involved (like company representatives, courts etc.).
 
@@ -14,7 +14,7 @@ So idea is that you fill out a form with the case information/contact info and a
 
 This application's GUI is written in Czech. Generated letters are also in Czech.
 
-##Installation
+## Installation
 
 Application is packaged as ``gem``, so you can install it with:
 
@@ -33,13 +33,13 @@ $ ./bin/letter_gen
 
 Application is built with [Qt](https://www.qt.io/https://www.qt.io/), and it requires [qtbindings](https://github.com/ryanmelt/qtbindings) gem. This gem should be collected automatically, however you have to have Qt4 installed.
 
-##Usage
+## Usage
 
 Simply run ``./bin/letter_gen`` executable. For the first time you'll have to fill out your contact information, which can be saved in ``$HOME/.config/letter_gen/profiles/profile.json``.
 
 When you fill out the forms and click on *Generovat*, application will create a folder called ``letters`` in your working directory. This folder will contain a folder with ``.tex`` file for each generated letter (as well as folder named ``static`` with TeX class file).
 
-##How are the letters generated
+## How are the letters generated
 
 As mentioned in [here](#Basic Idea), each letter contains some common intro, unique section and common closure/contact info. Common parts are defined in ``lib/letter_gen/templates/letter_template.tex`` with placeholders in format ``$placeholder$``. There is also a placeholder for unique section (``$paragraph$``).
 
